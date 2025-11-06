@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>NCASTEM-2025 | Grand Curtain Reveal</title>
+  <style>
+    * { box-sizing: border-box; margin:0; padding:0; }
+
+    html,body { height:100%; width:100%; }
+
+    body {
+      height:100vh;
+      width:100vw;
+      overflow:hidden;
+      background: radial-gradient(circle at center, #2b0000, #3a0000, #120000);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-family:"Poppins",sans-serif;
+      color:#fff;
+    }
+
+    .stage {
+      position:relative;
+      width:100%;
+      height:100%;
+      overflow:hidden;
+    }
+
+    svg#curtainSvg {
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      z-index:5;
+      pointer-events:none;
+    }
+
+    /* ===== Content (iframe) ===== */
+    .content {
+      position:absolute;
+      inset:0;
+      z-index:1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      opacity:0;
+      pointer-events:none;
+      transition: opacity 1s ease, transform 1s ease;
+      transform: scale(0.97);
+      background:#1a0000;
+    }
+    .content.visible {
+      opacity:1;
+      pointer-events:auto;
+      transform: scale(1);
+    }
+
+    iframe {
+      width:100%;
+      height:100%;
+      border:0;
+      background:#fff;
+    }
+
+    /* ===== Center Text ===== */
+    .centerText {
+      position:absolute;
+      z-index:3;
+      inset:0;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      pointer-events:none;
+      text-shadow:0 0 25px rgba(255,100,100,0.6);
+      transition: opacity 0.8s ease;
+    }
+    .centerText.fade-out {
+      opacity: 0;
+    }
+
+    .centerText h1 {
+      font-size:56px;
+      font-weight:900;
+      letter-spacing:3px;
+      background:linear-gradient(90deg,#ff4d4d,#ff8c42,#ffc857);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+    .centerText h2 {
+      color:#ffd7b5;
+      font-weight:400;
+      margin-top:10px;
+    }
+
+    /* ===== Button ===== */
+    #inaugurateButton {
+      position:absolute;
+      left:50%;
+      top:50%;
+      transform:translate(-50%,-50%);
+      z-index:10;
+      padding:16px 48px;
+      border:none;
+      border-radius:999px;
+      background:linear-gradient(90deg,#b30000,#ff1b1b);
+      color:#fff;
+      font-weight:700;
+      font-size:18px;
+      letter-spacing:1px;
+      cursor:pointer;
+      box-shadow:0 0 40px rgba(255,30,30,0.4);
+      transition: all .4s ease;
+      animation:pulse 2.5s infinite ease-in-out;
+    }
+    #inaugurateButton:hover {
+      transform:translate(-50%,-50%) scale(1.05);
+      box-shadow:0 0 60px rgba(255,120,0,0.8);
+    }
+    #inaugurateButton.hidden {
+      opacity:0;
+      pointer-events:none;
+      transform:translate(-50%,-50%) scale(0.95);
+      transition:opacity .5s,transform .5s;
+    }
+
+    @keyframes pulse {
+      0%,100%{box-shadow:0 0 25px rgba(255,30,30,0.4);}
+      50%{box-shadow:0 0 50px rgba(255,150,0,0.8);}
+    }
+
+    @media(max-width:800px){
+      .centerText h1{font-size:36px;}
+      #inaugurateButton{padding:12px 30px;font-size:16px;}
+    }
+  </style>
+</head>
+<body>
+  <div class="stage" id="stage">
+    <svg id="curtainSvg" preserveAspectRatio="none" viewBox="0 0 100 100">
+      <defs>
+        <!-- Red curtain gradient -->
+        <linearGradient id="leftGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" style="stop-color:#5e0000;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#8a0000;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#490000;stop-opacity:1" />
+        </linearGradient>
+        <linearGradient id="rightGrad" x1="100%" y1="0%" x2="0%" y2="0%">
+          <stop offset="0%" style="stop-color:#5e0000;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#8a0000;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#490000;stop-opacity:1" />
+        </linearGradient>
+      </defs>
+
+      <!-- Left Curtain -->
+      <g id="leftCurtain">
+        <path d="M 0,0 L 50,0 L 50,100 Q 48,95 46,100 Q 44,90 42,100 Q 40,93 38,100 Q 36,96 34,100 Q 32,91 30,100 Q 28,94 26,100 Q 24,92 22,100 Q 20,95 18,100 Q 16,89 14,100 Q 12,97 10,100 Q 8,93 6,100 Q 4,91 2,100 Q 0,95 0,100 Z" 
+              fill="url(#leftGrad)" />
+        <path d="M 48,0 Q 48,30 47,60 Q 46,80 45,100" stroke="rgba(0,0,0,0.15)" stroke-width="1.5" fill="none"/>
+        <path d="M 42,0 Q 42,25 41,60 Q 40,85 39,100" stroke="rgba(0,0,0,0.1)" stroke-width="1" fill="none"/>
+        <path d="M 36,0 Q 36,35 35,65 Q 34,82 33,100" stroke="rgba(0,0,0,0.12)" stroke-width="1.2" fill="none"/>
+        <path d="M 30,0 Q 30,28 29,58 Q 28,80 27,100" stroke="rgba(0,0,0,0.1)" stroke-width="1" fill="none"/>
+        <path d="M 24,0 Q 24,32 23,62 Q 22,85 21,100" stroke="rgba(0,0,0,0.15)" stroke-width="1.5" fill="none"/>
+        <path d="M 18,0 Q 18,26 17,60 Q 16,82 15,100" stroke="rgba(0,0,0,0.11)" stroke-width="1" fill="none"/>
+        <path d="M 12,0 Q 12,30 11,65 Q 10,83 9,100" stroke="rgba(0,0,0,0.13)" stroke-width="1.2" fill="none"/>
+        <path d="M 6,0 Q 6,27 5,60 Q 4,81 3,100" stroke="rgba(0,0,0,0.1)" stroke-width="1" fill="none"/>
+        <path d="M 2,0 L 2,50 Q 3,70 2,100" stroke="rgba(255,255,255,0.08)" stroke-width="0.8" fill="none"/>
+      </g>
+
+      <!-- Right Curtain -->
+      <g id="rightCurtain">
+        <path d="M 100,0 L 50,0 L 50,100 Q 52,95 54,100 Q 56,90 58,100 Q 60,93 62,100 Q 64,96 66,100 Q 68,91 70,100 Q 72,94 74,100 Q 76,92 78,100 Q 80,95 82,100 Q 84,89 86,100 Q 88,97 90,100 Q 92,93 94,100 Q 96,91 98,100 Q 100,95 100,100 Z"
+              fill="url(#rightGrad)" />
+        <path d="M 52,0 Q 52,30 53,60 Q 54,80 55,100" stroke="rgba(0,0,0,0.15)" stroke-width="1.5" fill="none"/>
+        <path d="M 58,0 Q 58,25 59,60 Q 60,85 61,100" stroke="rgba(0,0,0,0.1)" stroke-width="1" fill="none"/>
+        <path d="M 64,0 Q 64,35 65,65 Q 66,82 67,100" stroke="rgba(0,0,0,0.12)" stroke-width="1.2" fill="none"/>
+        <path d="M 70,0 Q 70,28 71,58 Q 72,80 73,100" stroke="rgba(0,0,0,0.1)" stroke-width="1" fill="none"/>
+        <path d="M 76,0 Q 76,32 77,62 Q 78,85 79,100" stroke="rgba(0,0,0,0.15)" stroke-width="1.5" fill="none"/>
+        <path d="M 82,0 Q 82,26 83,60 Q 84,82 85,100" stroke="rgba(0,0,0,0.11)" stroke-width="1" fill="none"/>
+        <path d="M 88,0 Q 88,30 89,65 Q 90,83 91,100" stroke="rgba(0,0,0,0.13)" stroke-width="1.2" fill="none"/>
+        <path d="M 94,0 Q 94,27 95,60 Q 96,81 97,100" stroke="rgba(0,0,0,0.1)" stroke-width="1" fill="none"/>
+        <path d="M 98,0 L 98,50 Q 97,70 98,100" stroke="rgba(255,255,255,0.08)" stroke-width="0.8" fill="none"/>
+      </g>
+    </svg>
+
+    <div class="centerText" id="centerText">
+      <h1>NCASTEM - 2025</h1>
+      <h2>National Conference on Advances in Science, Technology, Engineering & Management</h2>
+    </div>
+
+    <div class="content" id="content">
+      <iframe id="flipIframe"
+        src="about:blank"
+        allow="clipboard-write; autoplay; fullscreen"
+        title="Conference Proceedings"></iframe>
+    </div>
+
+    <button id="inaugurateButton">INAUGURATE</button>
+  </div>
+
+  <script>
+    const btn = document.getElementById('inaugurateButton');
+    const left = document.getElementById('leftCurtain');
+    const right = document.getElementById('rightCurtain');
+    const content = document.getElementById('content');
+    const iframe = document.getElementById('flipIframe');
+    const title = document.getElementById('centerText');
+    let opened = false;
+
+    function openCurtains(){
+      if(opened) return;
+      opened = true;
+      btn.classList.add('hidden');
+
+      // Delay before fading out title
+      setTimeout(() => { title.classList.add('fade-out'); }, 2000);
+
+      // Animate curtains open
+      left.style.transition = "transform 2.8s cubic-bezier(0.7, 0, 0.3, 1)";
+      right.style.transition = "transform 2.8s cubic-bezier(0.7, 0, 0.3, 1)";
+      left.style.transform = "translateX(-110%)";
+      right.style.transform = "translateX(110%)";
+
+      // Load iframe after curtain movement
+      setTimeout(()=>{
+        iframe.src="https://publuu.com/flip-book/1004895/2218184/page/1?embed";
+        content.classList.add('visible');
+      },3000);
+    }
+
+    btn.addEventListener('click',openCurtains);
+    btn.addEventListener('keyup',e=>{if(e.key==='Enter')openCurtains();});
+  </script>
+</body>
+</html>
